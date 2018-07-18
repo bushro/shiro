@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.smxy.wechat.dao.WcUserPowerMapper" >
+  <resultMap id="BaseResultMap" type="com.smxy.wechat.pojo.WcUserPower" >
+    <id column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_power" property="userPower" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_role, user_power
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wc_user_power
+    where user_role = #{userRole,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wc_user_power
+    where user_role = #{userRole,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.smxy.wechat.pojo.WcUserPower" >
+    insert into wc_user_power (user_role, user_power)
+    values (#{userRole,jdbcType=VARCHAR}, #{userPower,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.smxy.wechat.pojo.WcUserPower" >
+    insert into wc_user_power
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="userPower != null" >
+        user_power,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="userPower != null" >
+        #{userPower,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.smxy.wechat.pojo.WcUserPower" >
+    update wc_user_power
+    <set >
+      <if test="userPower != null" >
+        user_power = #{userPower,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_role = #{userRole,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smxy.wechat.pojo.WcUserPower" >
+    update wc_user_power
+    set user_power = #{userPower,jdbcType=VARCHAR}
+    where user_role = #{userRole,jdbcType=VARCHAR}
+  </update>
+</mapper>
